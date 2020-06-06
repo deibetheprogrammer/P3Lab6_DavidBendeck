@@ -22,7 +22,7 @@ class Civilizacion
 		int alimento;
 		vector<Habitante*> habitantes;
 		int numCasas;
-		int numCarteles;
+		int numCuarteles;
 		int numEstablos;
 		int numHabitantes;
 		
