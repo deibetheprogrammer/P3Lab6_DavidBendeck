@@ -24,6 +24,10 @@ Civilizacion::Civilizacion(string nombre) {
 	habitantes.push_back(new Jinete());
 	numCasas = 2;
 	numHabitantes = 10;
+	
+	for (int i = 0; i < habitantes.size(); i++) {
+		habitantes[i]->horas = 0;
+	}
 }
 
 Civilizacion::~Civilizacion()

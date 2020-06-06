@@ -13,7 +13,7 @@ class Guerrero : public Habitante
 		int vAtaque;
 		
 		//FUNCTIONS
-		void virtual atacar(Habitante*);
+		void atacar(Habitante*);
 		
 		string tipo();
 		

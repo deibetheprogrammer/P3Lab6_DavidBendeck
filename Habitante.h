@@ -16,6 +16,7 @@ class Habitante
 		
 		//FUNCTIONS
 		virtual string tipo();
+		virtual void atacar(Habitante* pHabitante);
 		
 		~Habitante();
 	protected:

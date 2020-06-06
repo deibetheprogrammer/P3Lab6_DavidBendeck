@@ -10,6 +10,10 @@ string Habitante::tipo() {
 	
 }
 
+void Habitante::atacar(Habitante* pHabitante) {
+	
+}
+
 Habitante::~Habitante()
 {
 }

@@ -7,6 +7,8 @@
 #include "Jinete.h"
 #include "Arquero.h"
 #include "Caballero.h"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h> 
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 using std::vector;
@@ -17,6 +19,9 @@ using std::string;
 
 //Funcion que hace que el juego corra
 void juego(vector<Civilizacion*>&);
+
+//Funcion resumen guerra
+void resumenCiv(Civilizacion*);
 
 int main(int argc, char** argv) {
 	
@@ -75,6 +80,8 @@ int main(int argc, char** argv) {
 
 //Funcion que hace que el juego corra
 void juego(vector<Civilizacion*>& civilizaciones) {
+	
+	srand (time(0));
 	
 	cout << endl;
 	
@@ -315,6 +322,113 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 			}
 			case 8: {
 				
+				cout << endl
+					 << "***GUERRA***" << "\n\n";
+				
+				for(int i = 0; i < civilizaciones.size(); i++) {
+					if(civilizaciones[i] != civActual) {
+						cout << i << " : "
+							 << civilizaciones[i]->nombre << endl;
+					}
+				}
+		
+				cout << endl
+					 << "Por favor, elija una civilizacion: ";
+				
+				cin >> indice;
+				
+				while (!cin || (indice < 0 || indice > civilizaciones.size()-1) || civilizaciones[indice] == civActual) {
+					cin.clear ();    // Restore input stream to working state
+    				cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
+   				 	cout << "Por favor, ingrese una opcion valida: ";
+   					cin >> indice; 
+				}
+				
+				Civilizacion* civAtacada = civilizaciones[indice];
+				
+				bool guerra = true;
+				
+				while(guerra) {
+					
+				
+					for(int i = 0; i < civActual->habitantes.size(); i++) {
+						if(civActual->habitantes[i]->tipo() != "Aldeano" && civActual->habitantes[i]->horas >= 0) {
+							indice = rand()%civAtacada->habitantes.size();
+							civActual->habitantes[i]->atacar(civAtacada->habitantes[indice]);
+							if (civAtacada->habitantes[indice]->vida <= 0) {
+								civAtacada->habitantes.erase(civAtacada->habitantes.begin() + indice);
+								if (civAtacada->habitantes.size() == 0) {
+									
+									guerra = false;
+									cout << endl
+										 << "Civilizacion atacada extinta!"
+										 << endl;
+									for (int j = 0; j < civilizaciones.size(); j++ ) {
+										if (civilizaciones[j] == civAtacada) {
+											civilizaciones.erase(civilizaciones.begin() + j);
+										}
+									}
+								
+									civActual->alimento += 100;
+									civActual->oro += 100;
+									civActual->madera += 100;
+								
+									break;
+								}
+							} else {
+								civAtacada->habitantes[indice]->atacar(civActual->habitantes[i]);
+								if(civActual->habitantes[i]->vida <= 0) {
+									civActual->habitantes.erase(civActual->habitantes.begin() + i);
+									i--;
+								}
+							}					
+						}
+					}
+				
+					int guerreros = 0;
+					for (int i = 0; i < civActual->habitantes.size(); i++) {
+						if(civActual->habitantes[i]->tipo() != "Aldeano" && civActual->habitantes[i]->horas >= 0) {
+							guerreros++;
+						}
+					}
+				
+					if (guerreros = 0) {
+						cout << endl
+							 << "Has perdido la batalla !"
+							 << endl;
+						civActual->oro -= 20;
+						guerra = false;
+					}
+					
+					if (guerra) {
+						
+						resumenCiv(civActual);
+						resumenCiv(civAtacada);
+						
+						cout << endl
+							 << "Desea continuar ? " << endl
+							 << "1) si" << endl
+							 << "2) no" << endl
+							 << "Su eleccion: ";
+						
+						int choice;
+						cin >> choice;
+						
+						while (!cin || (choice < 1 || choice > 2) ) {
+							cin.clear ();    // Restore input stream to working state
+    						cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
+   						 	cout << "Por favor, ingrese una opcion valida: ";
+   							cin >> choice; 
+						}
+						
+						if(choice == 2) {
+							guerra = false;
+						}
+						
+					}
+				
+				}
+				
 				break;
 			}
 			case 9: {
@@ -360,6 +474,37 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 		}
 		
 	}
+	
+}
+
+//Funcion resumen guerra
+void resumenCiv(Civilizacion* civ) {
+	
+	int Aldeanos,Jinetes,Arqueros,Caballeros;
+	
+	for (int i = 0; i < civ->habitantes.size(); i++) {
+		if (civ->habitantes[i]->horas >= 0) {
+			string tipo = civ->habitantes[i]->tipo();
+			if(tipo == "Aldeano")
+				Aldeanos++;
+			if(tipo == "Jinete") {
+				Jinetes++;
+			}
+			if(tipo == "Arquero") {
+				Arqueros++;
+			}
+			if (tipo == "Caballero") {
+				Caballeros++;
+			}
+		}
+	}
+	
+	cout << endl
+		 << "Civilizacion: "  << civ->nombre << endl
+		 << "Aldeanos: " << Aldeanos << endl
+		 << "Jinete: " << Jinetes << endl
+		 << "Arquero: " << Arqueros << endl
+		 << "Caballeros: " << Caballeros << endl;
 	
 }
 
