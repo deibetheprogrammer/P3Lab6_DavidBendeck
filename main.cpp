@@ -116,8 +116,8 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 			<<"3) Crear arquero" << endl
 			<<"4) Crear caballero" << endl
 			<<"5) Construir casa" << endl
-			<<"6) Construir cuartel" << endl
-			<<"7) Construir establo" << endl
+			<<"6) Construir establo" << endl
+			<<"7) Construir cuartel" << endl
 			<<"8) Ir a la guerra" << endl
 			<<"9) Siguiente hora" << endl
 			<<"10) Salir" << endl
