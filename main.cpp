@@ -447,12 +447,6 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 					}
 				}
 				
-				cout << "Alimentos: " << civActual->alimento << endl
-					 << "Madera: " << civActual->alimento << endl
-					 << "Oro: " << civActual->oro << endl
-					 << "Habitantes: " << civActual->habitantes.size() << endl
-					 << "Capacidad de habitantes: " << civActual->numHabitantes << endl;
-				
 				for (int i = 0; i < civActual->habitantes.size(); i++) {
 					
 					//Restarle horas de creacion
@@ -465,6 +459,13 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 							 << endl;
 					}
 				}
+				
+				resumenCiv(civActual);
+				
+				cout << "Alimentos: " << civActual->alimento << endl
+					 << "Madera: " << civActual->alimento << endl
+					 << "Oro: " << civActual->oro << endl
+					 << "Capacidad de habitantes: " << civActual->numHabitantes << endl;
 				
 				break;
 			}
@@ -513,6 +514,7 @@ void resumenCiv(Civilizacion* civ) {
 		 << "Caballeros: " << Caballeros << endl;
 	
 }
+
 
 
 
