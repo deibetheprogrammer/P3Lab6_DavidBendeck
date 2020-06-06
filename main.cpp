@@ -58,6 +58,8 @@ int main(int argc, char** argv) {
 				
 				cout << "Civilizacion: " << nombre << " ha sido creada!" << endl;
 				
+				resumenCiv(civilizaciones[civilizaciones.size()-1]);
+				
 				break;
 			}
 			case 2: {
@@ -124,7 +126,7 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 		int opcion;
 		cin >> opcion;
 	
-		while (!cin || (opcion < 1 || opcion > 9)) {
+		while (!cin || (opcion < 1 || opcion > 10)) {
 			cin.clear ();    // Restore input stream to working state
     		cin.ignore ( 100 , '\n' );    // Get rid of any garbage that user might have entered
    		 	cout << "Por favor, ingrese una opcion valida: ";
@@ -480,7 +482,11 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 //Funcion resumen guerra
 void resumenCiv(Civilizacion* civ) {
 	
-	int Aldeanos,Jinetes,Arqueros,Caballeros;
+	int Aldeanos = 0;
+	int Jinetes = 0;
+	int Arqueros = 0;
+	int Caballeros = 0;
+	
 	
 	for (int i = 0; i < civ->habitantes.size(); i++) {
 		if (civ->habitantes[i]->horas >= 0) {
