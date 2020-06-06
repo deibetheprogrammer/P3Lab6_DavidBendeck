@@ -236,7 +236,7 @@ void juego(vector<Civilizacion*>& civilizaciones) {
 						civActual->habitantes.push_back(new Caballero());
 						
 						cout << endl
-							 << "Su arquero estara listo en 4 horas"
+							 << "Su Caballero estara listo en 4 horas"
 							 << endl;
 						
 					} else {
